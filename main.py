@@ -7,13 +7,6 @@ app = Flask(__name__)
 
 model = joblib.load('models/random_forest_model.pkl')
 
-def preprocess_data(data):
-    return data
-
-def classify_data(data):
-    prediction = model.predict(data)
-    return prediction
-
 @app.route('/predict', methods=['GET', 'POST'])
 def home():
     prediction = -1
