@@ -25,11 +25,11 @@
             <legend class="text-center text-uppercase">Loan Approval Prediction</legend>
             {% if prediction != -1 %}
             <div class="flex-container row m-auto justify-content-center">
-              <div class="alert alert-dismissible fade show mt-3 {% if prediction == 1 %} alert-danger {% else %} alert-success {% endif %}" role="alert">
-                {% if prediction == 0 %} 
-                  Loan is rejected! - Proba: {{ prediction[0][1] }}
+              <div class="alert alert-dismissible fade show mt-3 {% if prediction[1] < 50 %} alert-danger {% else %} alert-success {% endif %}" role="alert">
+                {% if prediction[1] < 50.0 %} 
+                  Loan is rejected! - Probability: %{{ prediction[1] }}
                 {% else %} 
-                  Loan is approved! - Proba: {{ prediction[0][0] }}
+                  Loan is approved! - Probability: %{{ prediction[1] }}
                 {% endif %}
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
@@ -38,57 +38,71 @@
             </div>
             {% endif %}
           <div class="flex-container row m-auto justify-content-center">
-            <label for="no_of_dependents" class="col-md-4 col-sm-12 m-2 p-1">no_of_dependents</label>
+            <label for="no_of_dependents" class="col-md-4 col-sm-12 m-2 p-1">Number of Dependents</label>
             <label for="city" class="col-md-4 col-sm-12 m-2 p-1">City</label>
           </div>
           <div class="flex-container row m-auto justify-content-center">
-            <input type="number" value=1000 class="col-md-4 col-sm-12 m-2 p-1 form-control"  name="no_of_dependents" id="" required placeholder="no_of_dependents">
-            <input type="number" value=1000 class="col-md-4 col-sm-12 m-2 p-1 form-control"  name="city" id="" required placeholder="city">
+            <input type="number" value="0" min="0" max="5" class="col-md-4 col-sm-12 m-2 p-1 form-control"  name="no_of_dependents" id="" required placeholder="no_of_dependents">
+            <select name="city" id="city" class="form-select col-md-4 col-sm-12 m-2 p-1 form-control" aria-label="Default select example">
+              <option value="Ankara">Ankara</option>
+              <option value="Bursa">Bursa</option>
+              <option value="Erzurum">Erzurum</option>
+              <option value="Istanbul">Istanbul</option>
+              <option value="Izmir">Izmir</option>
+            </select>
           </div>
 
           <div class="flex-container row m-auto justify-content-center">
-            <label for="education" class="col-md-4 col-sm-12 m-2 p-1">education</label>
-            <label for="self_employed" class="col-md-4 col-sm-12 m-2 p-1">self_employed</label>
+            <label for="education" class="col-md-4 col-sm-12 m-2 p-1">Education</label>
+            <label for="self_employed" class="col-md-4 col-sm-12 m-2 p-1">Self Employed</label>
           </div>
           <div class="flex-container row m-auto justify-content-center">
-            <input type="number" value=1000 class="col-md-4 col-sm-12 m-2 p-1 form-control"  name="education" id="" required placeholder="education">
-            <input type="number" value=1000 class="col-md-4 col-sm-12 m-2 p-1 form-control"  name="self_employed" id="" required placeholder="self_employed">
+            <select name="education" id="education" class="form-select col-md-4 col-sm-12 m-2 p-1 form-control" aria-label="Default select example">
+              <option value="Graduate">Graduate</option>
+              <option value="Not Graduate">Not Graduate</option>
+            </select>
+
+            <select name="self_employed" id="self_employed" class="form-select col-md-4 col-sm-12 m-2 p-1 form-control" aria-label="Default select example">
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+
           </div>
           
           <div class="flex-container row m-auto justify-content-center">
-            <label for="income_annum" class="col-md-4 col-sm-12 m-2 p-1">income_annum</label>
-            <label for="loan_amount" class="col-md-4 col-sm-12 m-2 p-1">loan_amount</label>
+            <label for="income_annum" class="col-md-4 col-sm-12 m-2 p-1">Income Annum</label>
+            <label for="loan_amount" class="col-md-4 col-sm-12 m-2 p-1">Loan Amount</label>
           </div>
           <div class="flex-container row m-auto justify-content-center">
-            <input type="number" value=1000 class="col-md-4 col-sm-12 m-2 p-1 form-control"  name="income_annum" id="" required placeholder="income_annum">
-            <input type="number" value=1000 class="col-md-4 col-sm-12 m-2 p-1 form-control"  name="loan_amount" id="" required placeholder="loan_amount">
-          </div>
-
-          <div class="flex-container row m-auto justify-content-center">
-            <label for="func" class="col-md-4 col-sm-12 m-2 p-1">loan_term</label>
-            <label for="age" class="col-md-4 col-sm-12 m-2 p-1">cibil_score</label>
-          </div>
-          <div class="flex-container row m-auto justify-content-center">
-            <input type="number" value=1000 class="col-md-4 col-sm-12 m-2 p-1 form-control"  name="loan_term" id="" required placeholder="loan_term">
-            <input type="number" value=1000 class="col-md-4 col-sm-12 m-2 p-1 form-control"  name="cibil_score" id="" required placeholder="cibil_score">
+            <input type="number" value="1000000" step="100000" class="col-md-4 col-sm-12 m-2 p-1 form-control"  name="income_annum" id="" required placeholder="Income Annum">
+            <input type="number" value="10000000"  step="100000" class="col-md-4 col-sm-12 m-2 p-1 form-control"  name="loan_amount" id="" required placeholder="Loan Amount">
           </div>
 
           <div class="flex-container row m-auto justify-content-center">
-            <label for="func" class="col-md-4 col-sm-12 m-2 p-1">residential_assets_value</label>
-            <label for="age" class="col-md-4 col-sm-12 m-2 p-1">commercial_assets_value</label>
+            <label for="func" class="col-md-4 col-sm-12 m-2 p-1">Loan Term</label>
+            <label for="age" class="col-md-4 col-sm-12 m-2 p-1">Cibil Score</label>
           </div>
           <div class="flex-container row m-auto justify-content-center">
-            <input type="number" value=1000 class="col-md-4 col-sm-12 m-2 p-1 form-control"  name="residential_assets_value" id="" required placeholder="residential_assets_value">
-            <input type="number" value=1000 class="col-md-4 col-sm-12 m-2 p-1 form-control"  name="commercial_assets_value" id="" required placeholder="commercial_assets_value">
+            <input type="number" value=1000000 step="100000" class="col-md-4 col-sm-12 m-2 p-1 form-control"  name="loan_term" id="" required placeholder="Loan Term">
+            <input type="number" value=500 step="10" class="col-md-4 col-sm-12 m-2 p-1 form-control"  name="cibil_score" id="" required placeholder="Cibil Score">
           </div>
 
           <div class="flex-container row m-auto justify-content-center">
-            <label for="luxury_assets_value" class="col-md-4 col-sm-12 m-2 p-1">luxury_assets_value</label>
-            <label for="bank_asset_value" class="col-md-4 col-sm-12 m-2 p-1">bank_asset_value</label>
+            <label for="func" class="col-md-4 col-sm-12 m-2 p-1">Residential Assets Value</label>
+            <label for="age" class="col-md-4 col-sm-12 m-2 p-1">Commercial Assets Value</label>
           </div>
           <div class="flex-container row m-auto justify-content-center">
-            <input type="number" value=1000 class="col-md-4 col-sm-12 m-2 p-1 form-control"  name="luxury_assets_value" id="" required placeholder="luxury_assets_value">
-            <input type="number" value=1000 class="col-md-4 col-sm-12 m-2 p-1 form-control"  name="bank_asset_value" id="" required placeholder="bank_asset_value">
+            <input type="number" value=1000000 step="100000" class="col-md-4 col-sm-12 m-2 p-1 form-control"  name="residential_assets_value" id="" required placeholder="Residential Assets Value">
+            <input type="number" value=1000000 step="100000"v class="col-md-4 col-sm-12 m-2 p-1 form-control"  name="commercial_assets_value" id="" required placeholder="Commercial Assets Value">
+          </div>
+
+          <div class="flex-container row m-auto justify-content-center">
+            <label for="luxury_assets_value" class="col-md-4 col-sm-12 m-2 p-1">Luxury Assets Value</label>
+            <label for="bank_asset_value" class="col-md-4 col-sm-12 m-2 p-1">Bank Asset Value</label>
+          </div>
+          <div class="flex-container row m-auto justify-content-center">
+            <input type="number" value=1000000 step="100000" class="col-md-4 col-sm-12 m-2 p-1 form-control"  name="luxury_assets_value" id="" required placeholder="Luxury Assets Value">
+            <input type="number" value=1000000 step="100000" class="col-md-4 col-sm-12 m-2 p-1 form-control"  name="bank_asset_value" id="" required placeholder="Bank Asset Value">
           </div>
 
           <div class="flex-container row justify-content-center m-4">
